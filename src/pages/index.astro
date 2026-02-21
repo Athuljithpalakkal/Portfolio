@@ -1,0 +1,228 @@
+---
+import Hero from "../components/Hero/Hero.astro";
+import Navbar from "../components/Navbar/Navbar.astro";
+import Section from "../components/Section/Section.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const experienceHighlights = [
+  "Designed and developed scalable frontend features using React.js with hooks, lifecycle patterns, and modular component architecture.",
+  "Implemented robust state management with Redux Toolkit and React Query for predictable caching and API synchronization.",
+  "Built and integrated frontend modules with ERPNext using RESTful APIs for freight and logistics workflows.",
+  "Applied modern JavaScript (ES6+) patterns including promises, async flows, and object/array transformations to improve reliability.",
+  "Improved performance and UX by reducing unnecessary re-renders, optimizing API calls, and tightening client-side caching.",
+  "Collaborated with backend and product teams through agile delivery cycles to ship production-ready UI features."
+];
+
+const projects = [
+  {
+    name: "Kerala Bone Marrow Registry (KBMR)",
+    type: "Full-stack Web Platform",
+    stack: ["Next.js", "React", "ERPNext", "CSS Modules"],
+    highlights: [
+      "Built a production-grade web platform with SSR and client-side routing for speed and SEO.",
+      "Implemented complex UI flows for donor registration and verification using React hooks and component lifecycle patterns.",
+      "Integrated role-based dashboards with ERPNext REST APIs and secure data exchange workflows.",
+      "Improved reliability by enforcing reusable components and reducing unnecessary re-renders."
+    ]
+  },
+  {
+    name: "ITI Institutional Website",
+    type: "Full-stack Web Application",
+    stack: ["Next.js", "Payload CMS", "React Query"],
+    highlights: [
+      "Developed a responsive institutional website backed by Payload CMS for dynamic content management.",
+      "Implemented structured data fetching with React Query to handle server state efficiently.",
+      "Migrated legacy inline styles to CSS Modules for better readability and scalable styling."
+    ]
+  },
+  {
+    name: "Bayesian Ways Company Website",
+    type: "Corporate Website",
+    stack: ["Astro", "HTML", "CSS", "JavaScript"],
+    highlights: [
+      "Built a fast, SEO-friendly company website using Astro and modern frontend practices.",
+      "Focused on accessibility, responsive layouts, and clean content structure."
+    ]
+  }
+];
+
+const skillGroups = [
+  {
+    title: "Frontend",
+    items: [
+      "React.js (Hooks, Context, Lifecycle)",
+      "Next.js (SSR, Routing)",
+      "Redux Toolkit",
+      "React Query",
+      "HTML5/CSS3",
+      "CSS Modules"
+    ]
+  },
+  {
+    title: "JavaScript & Architecture",
+    items: [
+      "JavaScript (ES6+)",
+      "TypeScript",
+      "Promises, Async/Await",
+      "REST API Integrations",
+      "Reusable Component Design",
+      "Performance Optimization"
+    ]
+  },
+  {
+    title: "Backend & Platform",
+    items: [
+      "Node.js",
+      "Express.js",
+      "MongoDB",
+      "JWT",
+      "Strapi",
+      "Frappe / ERPNext",
+      "Payload CMS"
+    ]
+  },
+  {
+    title: "Tooling",
+    items: [
+      "Git & GitHub",
+      "Webpack",
+      "Babel",
+      "VS Code",
+      "Postman",
+      "Storybook",
+      "Jest",
+      "Keycloak"
+    ]
+  }
+];
+
+const softSkills = [
+  "Strong communicator across cross-functional and multicultural teams.",
+  "Adaptable and self-driven with a continuous learning mindset.",
+  "Problem-solving focus with high-quality, impact-driven delivery.",
+  "Comfortable in fast-paced, client-facing environments.",
+  "Collaborative teammate with strong ownership and feedback culture."
+];
+---
+
+<BaseLayout>
+  <Navbar />
+
+  <main>
+    <Hero />
+
+    <Section id="about" title="About">
+      <div class="aboutGrid">
+        <p class="lead">
+          Frontend-focused full-stack developer with 2+ years of experience
+          building scalable, high-performance web applications. I specialize in
+          React.js and Next.js, with strong ERPNext API integration experience
+          and a focus on clean architecture, reusable UI systems, and
+          performance optimization.
+        </p>
+        <aside class="aboutCard">
+          <h3>Current Focus</h3>
+          <ul class="listClean">
+            <li>React + Next.js product engineering</li>
+            <li>ERPNext-connected frontend workflows</li>
+            <li>High-performance, maintainable UI architecture</li>
+          </ul>
+        </aside>
+      </div>
+    </Section>
+
+    <Section id="experience" title="Experience">
+      <article class="experienceCard">
+        <header class="metaHeader">
+          <div>
+            <h3>Bayesian Ways LLP</h3>
+            <p class="role">Frontend Developer (Associate Software Engineer)</p>
+          </div>
+          <p class="meta">Apr 2024 - Present · Remote</p>
+        </header>
+        <ul class="listClean">
+          {experienceHighlights.map((item) => <li>{item}</li>)}
+        </ul>
+      </article>
+    </Section>
+
+    <Section id="projects" title="Projects">
+      <div class="projectGrid">
+        {projects.map((project) => (
+          <article class="projectCard">
+            <h3>{project.name}</h3>
+            <p class="projectType">{project.type}</p>
+            <div class="tagRow">
+              {project.stack.map((tech) => <span class="tag">{tech}</span>)}
+            </div>
+            <ul class="listClean">
+              {project.highlights.map((point) => <li>{point}</li>)}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </Section>
+
+    <Section id="skills" title="Skills">
+      <div class="skillsGrid">
+        {skillGroups.map((group) => (
+          <article class="skillCard">
+            <h3>{group.title}</h3>
+            <ul class="skillList">
+              {group.items.map((item) => <li>{item}</li>)}
+            </ul>
+          </article>
+        ))}
+      </div>
+      <article class="softCard">
+        <h3>Soft Skills</h3>
+        <ul class="listClean">
+          {softSkills.map((item) => <li>{item}</li>)}
+        </ul>
+      </article>
+    </Section>
+
+    <Section id="education" title="Education">
+      <article class="educationCard">
+        <h3>Paramekkavu College of Arts and Science</h3>
+        <p class="role">B.Sc. in Electronics</p>
+        <p class="meta">Thrissur, Kerala</p>
+      </article>
+    </Section>
+
+    <Section id="contact" title="Contact">
+      <p class="lead">
+        Open to frontend and full-stack opportunities focused on scalable web
+        products and product-quality UI engineering.
+      </p>
+      <div class="contactGrid">
+        <a class="contactCard" href="mailto:ksathuljith@gmail.com">
+          <h3>Email</h3>
+          <p>ksathuljith@gmail.com</p>
+        </a>
+        <a class="contactCard" href="tel:+917025952017">
+          <h3>Phone</h3>
+          <p>+91 70259 52017</p>
+        </a>
+        <a
+          class="contactCard"
+          href="https://www.linkedin.com/in/athuljith-ks-87448424a"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <h3>LinkedIn</h3>
+          <p>athuljith-ks-87448424a</p>
+        </a>
+        <a
+          class="contactCard"
+          href="https://github.com/Athuljithpalakkal"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <h3>GitHub</h3>
+          <p>Athuljithpalakkal</p>
+        </a>
+      </div>
+    </Section>
+  </main>
+</BaseLayout>

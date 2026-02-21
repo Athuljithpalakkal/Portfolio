@@ -1,0 +1,292 @@
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  margin: 0;
+  min-height: 100svh;
+  background:
+    radial-gradient(1200px 700px at 8% -18%, rgba(37, 99, 235, 0.16), transparent),
+    radial-gradient(900px 580px at 95% 8%, rgba(20, 184, 166, 0.14), transparent),
+    linear-gradient(120deg, rgba(148, 163, 184, 0.06), transparent 30%),
+    var(--bg);
+  color: var(--text);
+  font-family: "Manrope", "Avenir Next", "Segoe UI", sans-serif;
+  line-height: 1.6;
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+main {
+  height: 100svh;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  scroll-padding-top: 5.75rem;
+  scroll-snap-type: y proximity;
+  scrollbar-gutter: stable;
+}
+
+section {
+  scroll-snap-align: start;
+  scroll-snap-stop: normal;
+  scroll-margin-top: 5.75rem;
+}
+
+.lead {
+  font-size: 1.08rem;
+  line-height: 1.75;
+  color: var(--muted);
+  margin: 0;
+}
+
+.aboutGrid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 1rem;
+  align-items: stretch;
+}
+
+.aboutCard,
+.experienceCard,
+.projectCard,
+.skillCard,
+.softCard,
+.educationCard,
+.contactCard {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  backdrop-filter: blur(14px);
+  border-radius: 1rem;
+  box-shadow: 0 10px 25px rgba(2, 6, 23, 0.06);
+  transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+}
+
+.aboutCard,
+.experienceCard,
+.projectCard,
+.skillCard,
+.softCard,
+.educationCard {
+  padding: 1.15rem;
+}
+
+.aboutCard h3,
+.projectCard h3,
+.skillCard h3,
+.softCard h3,
+.educationCard h3,
+.contactCard h3 {
+  margin-top: 0;
+  margin-bottom: 0.65rem;
+  font-size: 1.05rem;
+}
+
+.metaHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 0.6rem;
+}
+
+.role {
+  margin: 0.2rem 0 0;
+  color: var(--muted);
+}
+
+.meta {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.listClean {
+  list-style: none;
+  margin: 0.2rem 0 0;
+  padding: 0;
+}
+
+.listClean li {
+  position: relative;
+  padding-left: 1rem;
+  margin-bottom: 0.65rem;
+  line-height: 1.6;
+}
+
+.listClean li:last-child {
+  margin-bottom: 0;
+}
+
+.listClean li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.6rem;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: linear-gradient(120deg, var(--accent-1), var(--accent-2));
+}
+
+.projectGrid,
+.skillsGrid,
+.contactGrid {
+  display: grid;
+  gap: 1rem;
+}
+
+.projectGrid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.projectType {
+  margin: -0.15rem 0 0.65rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.tagRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-bottom: 0.75rem;
+}
+
+.tag {
+  border-radius: 999px;
+  font-size: 0.78rem;
+  padding: 0.3rem 0.6rem;
+  border: 1px solid var(--border);
+  background: rgba(37, 99, 235, 0.1);
+}
+
+.skillsGrid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.skillList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.skillList li {
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  padding: 0.3rem 0.55rem;
+  font-size: 0.82rem;
+  color: var(--text);
+  background: rgba(20, 184, 166, 0.11);
+}
+
+.softCard {
+  margin-top: 0.9rem;
+}
+
+.contactGrid {
+  margin-top: 0.9rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.contactCard {
+  text-decoration: none;
+  color: inherit;
+  padding: 0.95rem;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.contactCard p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.contactCard:hover {
+  transform: translateY(-3px);
+  border-color: rgba(37, 99, 235, 0.55);
+  box-shadow: 0 16px 28px rgba(2, 6, 23, 0.1);
+}
+
+.aboutCard:hover,
+.experienceCard:hover,
+.projectCard:hover,
+.skillCard:hover,
+.softCard:hover,
+.educationCard:hover {
+  transform: translateY(-3px);
+  border-color: rgba(37, 99, 235, 0.35);
+  box-shadow: 0 14px 26px rgba(2, 6, 23, 0.09);
+}
+
+@media (min-width: 1200px) {
+  main {
+    scroll-padding-top: 6rem;
+  }
+
+  section {
+    scroll-margin-top: 6rem;
+  }
+}
+
+@media (max-width: 960px) {
+  .aboutGrid,
+  .projectGrid,
+  .skillsGrid,
+  .contactGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .metaHeader {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 768px) {
+  main {
+    scroll-snap-type: y proximity;
+    scroll-padding-top: 5.2rem;
+  }
+
+  section {
+    scroll-margin-top: 5.2rem;
+  }
+}
+/* Tablet */
+@media (max-width: 768px) {
+  html {
+    font-size: 15px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  html {
+    font-size: 14px;
+  }
+
+  body {
+    line-height: 1.55;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  main {
+    scroll-snap-type: none;
+  }
+
+  .aboutCard,
+  .experienceCard,
+  .projectCard,
+  .skillCard,
+  .softCard,
+  .educationCard,
+  .contactCard {
+    transition: none;
+  }
+}
