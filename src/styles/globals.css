@@ -24,6 +24,120 @@ body {
   position: relative;
 }
 
+#ambient-canvas {
+  position: fixed;
+  inset: -14vmax;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  filter: saturate(115%);
+  transform: translate3d(0, calc(var(--ambient-shift, 0px) * 0.18), 0);
+}
+
+.ambient-blob,
+.ambient-ring {
+  position: absolute;
+  border-radius: 999px;
+  will-change: transform;
+}
+
+.ambient-blob {
+  opacity: 0.3;
+  filter: blur(70px);
+}
+
+.ambient-a {
+  width: 46vmax;
+  height: 46vmax;
+  left: -8vmax;
+  top: -10vmax;
+  background: radial-gradient(circle at 35% 35%, var(--accent-1), transparent 68%);
+  animation: ambientDriftA 22s ease-in-out infinite alternate;
+}
+
+.ambient-b {
+  width: 42vmax;
+  height: 42vmax;
+  right: -14vmax;
+  top: 10vmax;
+  background: radial-gradient(circle at 62% 40%, var(--accent-2), transparent 70%);
+  animation: ambientDriftB 26s ease-in-out infinite alternate;
+}
+
+.ambient-c {
+  width: 34vmax;
+  height: 34vmax;
+  left: 28vw;
+  bottom: -12vmax;
+  background:
+    radial-gradient(circle at 42% 45%, rgba(37, 99, 235, 0.85), transparent 68%),
+    radial-gradient(circle at 68% 58%, rgba(20, 184, 166, 0.75), transparent 72%);
+  opacity: 0.24;
+  animation: ambientDriftC 30s ease-in-out infinite alternate;
+}
+
+.ambient-ring {
+  border: 1px solid color-mix(in srgb, var(--accent-1) 55%, transparent);
+  opacity: 0.2;
+  filter: blur(1.2px);
+}
+
+.ambient-ring-a {
+  width: 56vmax;
+  height: 56vmax;
+  right: 18vw;
+  top: -26vmax;
+  animation: spinSlow 40s linear infinite;
+}
+
+.ambient-ring-b {
+  width: 66vmax;
+  height: 66vmax;
+  left: -24vmax;
+  bottom: -34vmax;
+  border-color: color-mix(in srgb, var(--accent-2) 55%, transparent);
+  animation: spinSlowReverse 52s linear infinite;
+}
+
+@keyframes ambientDriftA {
+  0% {
+    transform: translate3d(-4%, -3%, 0) scale(1);
+  }
+  100% {
+    transform: translate3d(7%, 6%, 0) scale(1.08);
+  }
+}
+
+@keyframes ambientDriftB {
+  0% {
+    transform: translate3d(3%, -2%, 0) scale(1.02);
+  }
+  100% {
+    transform: translate3d(-8%, 8%, 0) scale(0.95);
+  }
+}
+
+@keyframes ambientDriftC {
+  0% {
+    transform: translate3d(-7%, 5%, 0) scale(0.98);
+  }
+  100% {
+    transform: translate3d(7%, -5%, 0) scale(1.05);
+  }
+}
+
+@keyframes spinSlow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spinSlowReverse {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
 #scroll-progress {
   position: fixed;
   top: 0;
@@ -35,6 +149,11 @@ body {
   transform-origin: left center;
   z-index: 40;
   box-shadow: 0 0 20px rgba(37, 99, 235, 0.45);
+}
+
+body > *:not(#ambient-canvas):not(#scroll-progress) {
+  position: relative;
+  z-index: 1;
 }
 
 main {
@@ -297,6 +416,26 @@ section {
   section {
     scroll-margin-top: 5.2rem;
   }
+
+  [data-reveal] {
+    transform: translateY(14px) scale(0.995);
+    filter: blur(3px);
+    transition-duration: 0.5s;
+  }
+
+  .aboutCard:active,
+  .experienceCard:active,
+  .projectCard:active,
+  .skillCard:active,
+  .softCard:active,
+  .educationCard:active,
+  .contactCard:active {
+    transform: scale(0.985);
+  }
+
+  .tag:active {
+    transform: scale(0.96);
+  }
 }
 /* Tablet */
 @media (max-width: 768px) {
@@ -314,6 +453,22 @@ section {
   body {
     line-height: 1.55;
   }
+
+  .ambient-a,
+  .ambient-b,
+  .ambient-c {
+    filter: blur(56px);
+    opacity: 0.22;
+  }
+
+  .ambient-ring {
+    opacity: 0.12;
+  }
+
+  .primary:active,
+  .secondary:active {
+    transform: scale(0.985);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -330,6 +485,15 @@ section {
 
   main {
     scroll-snap-type: none;
+  }
+
+  #ambient-canvas {
+    transform: none;
+  }
+
+  .ambient-blob,
+  .ambient-ring {
+    animation: none;
   }
 
   .aboutCard,

@@ -25,6 +25,13 @@ import "../styles/theme.css";
   </head>
   <body>
     <div id="scroll-progress" aria-hidden="true"></div>
+    <div id="ambient-canvas" aria-hidden="true">
+      <span class="ambient-blob ambient-a"></span>
+      <span class="ambient-blob ambient-b"></span>
+      <span class="ambient-blob ambient-c"></span>
+      <span class="ambient-ring ambient-ring-a"></span>
+      <span class="ambient-ring ambient-ring-b"></span>
+    </div>
     <slot />
     <script>
       (() => {
@@ -67,6 +74,7 @@ import "../styles/theme.css";
           revealItems.forEach((item) => revealObserver.observe(item));
 
           const progressBar = document.getElementById("scroll-progress");
+          const ambientCanvas = document.getElementById("ambient-canvas");
           const navLinks = Array.from(
             document.querySelectorAll("nav a[href^='#']")
           );
@@ -93,6 +101,12 @@ import "../styles/theme.css";
             const ratio = max > 0 ? main.scrollTop / max : 0;
             if (progressBar) {
               progressBar.style.transform = `scaleX(${ratio})`;
+            }
+            if (ambientCanvas) {
+              ambientCanvas.style.setProperty(
+                "--ambient-shift",
+                `${(ratio - 0.5) * 100}px`
+              );
             }
 
             const target = main.scrollTop + main.clientHeight * 0.38;
