@@ -72,7 +72,15 @@
   color: var(--text);
 }
 
+.center a.active {
+  color: var(--text);
+}
+
 .center a:hover::after {
+  width: 100%;
+}
+
+.center a.active::after {
   width: 100%;
 }
 

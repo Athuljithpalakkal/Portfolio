@@ -4,11 +4,16 @@ import styles from "./Hero.module.css";
 
 <section class={styles.hero} id="home">
   <div class={styles.content}>
-    <p class={styles.kicker}>Frontend Developer · Associate Software Engineer</p>
+    <p class={styles.kicker}>
+      <span class={styles.dot} aria-hidden="true"></span>
+      Frontend Developer · Associate Software Engineer
+    </p>
 
     <h1 class={styles.title}>
-      Building <span>scalable</span><br />
-      web platforms
+      <span class={styles.line}>Building reliable</span>
+      <span class={styles.line}>
+        <span>frontend products</span>
+      </span>
     </h1>
 
     <p class={styles.subtitle}>
@@ -23,6 +28,21 @@ import styles from "./Hero.module.css";
       <li>REST APIs + ERPNext workflows</li>
     </ul>
 
+    <div class={styles.stats}>
+      <article>
+        <strong>2+ Years</strong>
+        <span>Hands-on product development</span>
+      </article>
+      <article>
+        <strong>3 Major Projects</strong>
+        <span>Production platforms delivered</span>
+      </article>
+      <article>
+        <strong>Frontend + ERPNext</strong>
+        <span>Strong integration experience</span>
+      </article>
+    </div>
+
     <div class={styles.actions}>
       <a href="#projects" class={styles.primary}>View Projects</a>
       <a href="/resume/AthulJith_FrontEndDev.pdf" class={styles.secondary} download>
@@ -32,4 +52,5 @@ import styles from "./Hero.module.css";
   </div>
 
   <div class={styles.orb} aria-hidden="true"></div>
+  <div class={styles.orbSecondary} aria-hidden="true"></div>
 </section>
