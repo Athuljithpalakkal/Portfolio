@@ -160,7 +160,7 @@ main {
   height: 100svh;
   overflow-y: auto;
   overscroll-behavior-y: contain;
-  scroll-padding-top: 6.15rem;
+  scroll-padding-top: 6.75rem;
   scroll-snap-type: y proximity;
   scrollbar-gutter: stable;
 }
@@ -168,7 +168,7 @@ main {
 section {
   scroll-snap-align: start;
   scroll-snap-stop: normal;
-  scroll-margin-top: 6.15rem;
+  scroll-margin-top: 6.75rem;
 }
 
 [data-reveal] {
@@ -519,11 +519,11 @@ section {
 
 @media (min-width: 1200px) {
   main {
-    scroll-padding-top: 6.35rem;
+    scroll-padding-top: 7rem;
   }
 
   section {
-    scroll-margin-top: 6.35rem;
+    scroll-margin-top: 7rem;
   }
 }
 
@@ -543,11 +543,11 @@ section {
 @media (max-width: 768px) {
   main {
     scroll-snap-type: y proximity;
-    scroll-padding-top: 5.5rem;
+    scroll-padding-top: 5.95rem;
   }
 
   section {
-    scroll-margin-top: 5.5rem;
+    scroll-margin-top: 5.95rem;
   }
 
   [data-reveal] {

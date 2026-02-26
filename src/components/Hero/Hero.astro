@@ -1,29 +1,27 @@
 ---
 import styles from "./Hero.module.css";
-
-const stars = [
-  { x: 8, y: 16, size: "2.2px", twinkle: "3.4s", delay: "0.2s" },
-  { x: 14, y: 31, size: "2.8px", twinkle: "4.6s", delay: "1.1s" },
-  { x: 19, y: 64, size: "2px", twinkle: "3.2s", delay: "0.7s" },
-  { x: 27, y: 12, size: "1.8px", twinkle: "4.1s", delay: "1.6s" },
-  { x: 34, y: 44, size: "2.4px", twinkle: "3.8s", delay: "0.5s" },
-  { x: 39, y: 76, size: "2.1px", twinkle: "4.3s", delay: "1.9s" },
-  { x: 46, y: 20, size: "1.9px", twinkle: "3.7s", delay: "0.9s" },
-  { x: 53, y: 57, size: "2.7px", twinkle: "4.9s", delay: "1.3s" },
-  { x: 61, y: 13, size: "2px", twinkle: "3.5s", delay: "1.7s" },
-  { x: 66, y: 36, size: "2.6px", twinkle: "4.2s", delay: "0.4s" },
-  { x: 71, y: 69, size: "2.3px", twinkle: "3.9s", delay: "1.5s" },
-  { x: 79, y: 24, size: "1.8px", twinkle: "4.7s", delay: "0.8s" },
-  { x: 84, y: 50, size: "2.8px", twinkle: "3.6s", delay: "1.2s" },
-  { x: 89, y: 73, size: "2.2px", twinkle: "4.4s", delay: "2s" },
-  { x: 92, y: 34, size: "2px", twinkle: "3.3s", delay: "0.3s" },
-  { x: 11, y: 85, size: "2.4px", twinkle: "4.5s", delay: "1.4s" },
-  { x: 30, y: 87, size: "1.9px", twinkle: "3.8s", delay: "2.1s" },
-  { x: 57, y: 82, size: "2.5px", twinkle: "4s", delay: "1s" }
-];
+import GradientText from "../GradientText/GradientText.jsx";
+import Particles from "../Particles/Particles.jsx";
 ---
 
 <section class={styles.hero} id="home">
+  <div class={styles.particlesLayer} aria-hidden="true">
+    <Particles
+      particleColors={["#1d4ed8", "#0f766e", "#334155", "#ffffff"]}
+      particleCount={220}
+      particleSpread={9.5}
+      speed={0.095}
+      particleBaseSize={110}
+      moveParticlesOnHover={true}
+      particleHoverFactor={0.85}
+      alphaParticles={true}
+      disableRotation={false}
+      pixelRatio={1}
+      className={styles.particlesCanvas}
+      client:load
+    />
+  </div>
+
   <div class={styles.content}>
     <p class={styles.kicker}>
       <span class={styles.dot} aria-hidden="true"></span>
@@ -33,7 +31,17 @@ const stars = [
     <h1 class={styles.title}>
       <span class={styles.line}>Building reliable</span>
       <span class={styles.line}>
-        <span>frontend products</span>
+        <GradientText
+          className={styles.titleGradient}
+          colors={["#2563eb", "#14b8a6", "#93c5fd"]}
+          animationSpeed={6}
+          direction="horizontal"
+          pauseOnHover={true}
+          yoyo={true}
+          client:load
+        >
+          frontend products
+        </GradientText>
       </span>
     </h1>
 
@@ -72,84 +80,6 @@ const stars = [
     </div>
   </div>
 
-  <div class={styles.starfield} aria-hidden="true">
-    {stars.map((star) => (
-      <span
-        class={styles.star}
-        data-star
-        data-sx={String(star.x)}
-        data-sy={String(star.y)}
-        style={`--x:${star.x}%;--y:${star.y}%;--size:${star.size};--twinkle:${star.twinkle};--delay:${star.delay};`}
-      ></span>
-    ))}
-  </div>
-
   <div class={styles.orb} aria-hidden="true"></div>
   <div class={styles.orbSecondary} aria-hidden="true"></div>
 </section>
-
-<script>
-  (() => {
-    const hero = document.getElementById("home");
-    if (!hero || hero.dataset.pointerBound === "true") return;
-    hero.dataset.pointerBound = "true";
-
-    hero.style.setProperty("--star-shift-x", "0px");
-    hero.style.setProperty("--star-shift-y", "0px");
-
-    const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-    if (!canHover) return;
-
-    const stars = Array.from(hero.querySelectorAll("[data-star]"));
-    const glowRadius = 24;
-
-    stars.forEach((star) => {
-      star.style.setProperty("--near", "0");
-    });
-
-    let pendingX = 50;
-    let pendingY = 50;
-    let frame = 0;
-
-    const updateStars = () => {
-      stars.forEach((star) => {
-        const sx = Number(star.getAttribute("data-sx"));
-        const sy = Number(star.getAttribute("data-sy"));
-        const dist = Math.hypot(pendingX - sx, pendingY - sy);
-        const near = Math.max(0, 1 - dist / glowRadius);
-        star.style.setProperty("--near", near.toFixed(3));
-      });
-      frame = 0;
-    };
-
-    const updatePointer = (event) => {
-      const rect = hero.getBoundingClientRect();
-      const x = event.clientX - rect.left;
-      const y = event.clientY - rect.top;
-      const nx = x / rect.width - 0.5;
-      const ny = y / rect.height - 0.5;
-      pendingX = (x / rect.width) * 100;
-      pendingY = (y / rect.height) * 100;
-
-      hero.style.setProperty("--star-shift-x", `${nx * 12}px`);
-      hero.style.setProperty("--star-shift-y", `${ny * 8}px`);
-
-      if (!frame) {
-        frame = requestAnimationFrame(updateStars);
-      }
-    };
-
-    const resetPointer = () => {
-      hero.style.setProperty("--star-shift-x", "0px");
-      hero.style.setProperty("--star-shift-y", "0px");
-      pendingX = 50;
-      pendingY = 50;
-      stars.forEach((star) => {
-        star.style.setProperty("--near", "0");
-      });
-    };
-
-    hero.addEventListener("pointermove", updatePointer, { passive: true });
-    hero.addEventListener("pointerleave", resetPointer);
-  })();
-</script>

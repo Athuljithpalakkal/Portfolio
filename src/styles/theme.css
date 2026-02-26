@@ -12,6 +12,7 @@
   --shadow-soft: 0 10px 25px rgba(11, 18, 32, 0.08);
   --shadow-float: 0 18px 34px rgba(11, 18, 32, 0.11);
   --text-glow: rgba(37, 99, 235, 0.42);
+  --nav-bg: rgba(246, 248, 252, 0.96);
 }
 
 [data-theme="dark"] {
@@ -28,4 +29,5 @@
   --shadow-soft: 0 12px 28px rgba(2, 6, 23, 0.36);
   --shadow-float: 0 22px 40px rgba(2, 6, 23, 0.46);
   --text-glow: rgba(96, 165, 250, 0.48);
+  --nav-bg: rgba(8, 15, 28, 0.9);
 }
