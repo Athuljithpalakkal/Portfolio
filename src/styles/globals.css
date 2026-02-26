@@ -160,7 +160,7 @@ main {
   height: 100svh;
   overflow-y: auto;
   overscroll-behavior-y: contain;
-  scroll-padding-top: 5.75rem;
+  scroll-padding-top: 6.15rem;
   scroll-snap-type: y proximity;
   scrollbar-gutter: stable;
 }
@@ -168,7 +168,7 @@ main {
 section {
   scroll-snap-align: start;
   scroll-snap-stop: normal;
-  scroll-margin-top: 5.75rem;
+  scroll-margin-top: 6.15rem;
 }
 
 [data-reveal] {
@@ -219,6 +219,57 @@ section {
   overflow: hidden;
 }
 
+.aboutCard::before,
+.experienceCard::before,
+.projectCard::before,
+.skillCard::before,
+.softCard::before,
+.educationCard::before,
+.contactCard::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  background:
+    radial-gradient(80% 90% at 10% 10%, rgba(37, 99, 235, 0.15), transparent 70%),
+    radial-gradient(85% 100% at 90% 90%, rgba(20, 184, 166, 0.14), transparent 72%);
+  opacity: 0;
+  transition: opacity 0.32s ease;
+  pointer-events: none;
+}
+
+.aboutCard::after,
+.experienceCard::after,
+.projectCard::after,
+.skillCard::after,
+.softCard::after,
+.educationCard::after,
+.contactCard::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    112deg,
+    transparent 22%,
+    rgba(255, 255, 255, 0.28) 50%,
+    transparent 76%
+  );
+  transform: translateX(-135%);
+  opacity: 0;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.aboutCard > *,
+.experienceCard > *,
+.projectCard > *,
+.skillCard > *,
+.softCard > *,
+.educationCard > *,
+.contactCard > * {
+  position: relative;
+  z-index: 1;
+}
+
 .aboutCard,
 .experienceCard,
 .projectCard,
@@ -237,6 +288,9 @@ section {
   margin-top: 0;
   margin-bottom: 0.65rem;
   font-size: 1.05rem;
+  color: var(--text);
+  display: inline-block;
+  transition: color 0.35s ease, text-shadow 0.35s ease;
 }
 
 .metaHeader {
@@ -269,6 +323,7 @@ section {
   padding-left: 1rem;
   margin-bottom: 0.65rem;
   line-height: 1.6;
+  transition: transform 0.25s ease;
 }
 
 .listClean li:last-child {
@@ -350,6 +405,22 @@ section {
   margin-top: 0.9rem;
 }
 
+.skillsVisualWrap {
+  margin: 1rem 0 0;
+  padding: 0.75rem;
+  border-radius: 1rem;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  box-shadow: var(--shadow-soft);
+}
+
+.skillsVisual {
+  display: block;
+  width: 100%;
+  max-height: 440px;
+  object-fit: contain;
+}
+
 .contactGrid {
   margin-top: 0.9rem;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -384,13 +455,75 @@ section {
   box-shadow: var(--shadow-float);
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .aboutCard:hover::before,
+  .experienceCard:hover::before,
+  .projectCard:hover::before,
+  .skillCard:hover::before,
+  .softCard:hover::before,
+  .educationCard:hover::before,
+  .contactCard:hover::before {
+    opacity: 1;
+  }
+
+  .aboutCard:hover::after,
+  .experienceCard:hover::after,
+  .projectCard:hover::after,
+  .skillCard:hover::after,
+  .softCard:hover::after,
+  .educationCard:hover::after,
+  .contactCard:hover::after {
+    animation: cardSheenSweep 0.72s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  }
+
+  .aboutCard:hover h3,
+  .projectCard:hover h3,
+  .skillCard:hover h3,
+  .softCard:hover h3,
+  .educationCard:hover h3,
+  .contactCard:hover h3 {
+    color: var(--accent-1);
+    text-shadow: 0 0 18px var(--text-glow);
+  }
+
+  .projectCard:hover .listClean li,
+  .experienceCard:hover .listClean li,
+  .softCard:hover .listClean li,
+  .aboutCard:hover .listClean li {
+    transform: translateX(2px);
+  }
+
+  .projectCard:hover .tag,
+  .skillCard:hover .skillList li {
+    transform: translateY(-2px);
+  }
+
+  .section:hover > h2 {
+    filter: drop-shadow(0 4px 14px var(--text-glow));
+  }
+}
+
+@keyframes cardSheenSweep {
+  0% {
+    opacity: 0;
+    transform: translateX(-135%);
+  }
+  18% {
+    opacity: 0.82;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(135%);
+  }
+}
+
 @media (min-width: 1200px) {
   main {
-    scroll-padding-top: 6rem;
+    scroll-padding-top: 6.35rem;
   }
 
   section {
-    scroll-margin-top: 6rem;
+    scroll-margin-top: 6.35rem;
   }
 }
 
@@ -410,11 +543,11 @@ section {
 @media (max-width: 768px) {
   main {
     scroll-snap-type: y proximity;
-    scroll-padding-top: 5.2rem;
+    scroll-padding-top: 5.5rem;
   }
 
   section {
-    scroll-margin-top: 5.2rem;
+    scroll-margin-top: 5.5rem;
   }
 
   [data-reveal] {
@@ -504,5 +637,35 @@ section {
   .educationCard,
   .contactCard {
     transition: none;
+  }
+
+  .aboutCard::before,
+  .experienceCard::before,
+  .projectCard::before,
+  .skillCard::before,
+  .softCard::before,
+  .educationCard::before,
+  .contactCard::before,
+  .aboutCard::after,
+  .experienceCard::after,
+  .projectCard::after,
+  .skillCard::after,
+  .softCard::after,
+  .educationCard::after,
+  .contactCard::after {
+    display: none;
+  }
+
+  .aboutCard h3,
+  .projectCard h3,
+  .skillCard h3,
+  .softCard h3,
+  .educationCard h3,
+  .contactCard h3,
+  .listClean li,
+  .tag,
+  .skillList li {
+    transition: none;
+    transform: none;
   }
 }

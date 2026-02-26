@@ -11,6 +11,7 @@
   --glow: 0 0 40px rgba(37, 99, 235, 0.25);
   --shadow-soft: 0 10px 25px rgba(11, 18, 32, 0.08);
   --shadow-float: 0 18px 34px rgba(11, 18, 32, 0.11);
+  --text-glow: rgba(37, 99, 235, 0.42);
 }
 
 [data-theme="dark"] {
@@ -26,4 +27,5 @@
   --glow: 0 0 60px rgba(96, 165, 250, 0.35);
   --shadow-soft: 0 12px 28px rgba(2, 6, 23, 0.36);
   --shadow-float: 0 22px 40px rgba(2, 6, 23, 0.46);
+  --text-glow: rgba(96, 165, 250, 0.48);
 }
