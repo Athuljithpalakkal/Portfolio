@@ -106,12 +106,22 @@ export default function Particles({
     const container = containerRef.current;
     if (!container) return undefined;
 
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    const saveData = navigator.connection?.saveData === true;
+    if (prefersReducedMotion || saveData) return undefined;
+
     const isMobile = window.matchMedia("(max-width: 768px)").matches;
     const hasHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-    const effectiveCount = isMobile ? Math.min(particleCount, 120) : particleCount;
-    const effectiveBaseSize = isMobile ? particleBaseSize * 0.72 : particleBaseSize;
+    const effectiveCount = isMobile ? Math.min(particleCount, 84) : particleCount;
+    const effectiveBaseSize = isMobile ? particleBaseSize * 0.64 : particleBaseSize;
     const effectiveDpr = isMobile ? Math.min(pixelRatio, 0.9) : pixelRatio;
     const enableHover = moveParticlesOnHover && hasHover;
+    const visibility = {
+      isInView: true,
+      isPageVisible: !document.hidden
+    };
 
     const renderer = new Renderer({
       dpr: effectiveDpr,
@@ -195,13 +205,35 @@ export default function Particles({
 
     const particles = new Mesh(gl, { mode: gl.POINTS, geometry, program });
 
+    let observer;
+    if ("IntersectionObserver" in window) {
+      observer = new IntersectionObserver(
+        (entries) => {
+          visibility.isInView = entries[0]?.isIntersecting ?? true;
+        },
+        { threshold: 0.02 }
+      );
+      observer.observe(container);
+    }
+
+    const handleVisibilityChange = () => {
+      visibility.isPageVisible = !document.hidden;
+    };
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
     let animationFrameId;
     let lastTime = performance.now();
     let elapsed = 0;
+    const frameBudget = isMobile ? 1000 / 28 : 1000 / 42;
 
     const update = (t) => {
       animationFrameId = requestAnimationFrame(update);
+      if (!visibility.isInView || !visibility.isPageVisible) {
+        lastTime = t;
+        return;
+      }
       const delta = t - lastTime;
+      if (delta < frameBudget) return;
       lastTime = t;
       elapsed += delta * speed;
 
@@ -231,6 +263,8 @@ export default function Particles({
       if (enableHover) {
         window.removeEventListener("mousemove", handleMouseMove);
       }
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      observer?.disconnect();
       cancelAnimationFrame(animationFrameId);
       if (container.contains(gl.canvas)) {
         container.removeChild(gl.canvas);

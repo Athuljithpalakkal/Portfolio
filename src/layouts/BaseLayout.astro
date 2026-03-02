@@ -38,6 +38,11 @@ import "../styles/theme.css";
         const initMotion = () => {
           const main = document.querySelector("main");
           if (!main) return;
+          const prefersReducedMotion = window.matchMedia(
+            "(prefers-reduced-motion: reduce)"
+          ).matches;
+          const saveData = navigator.connection?.saveData === true;
+          const lightweightMode = prefersReducedMotion || saveData;
 
           const revealSelectors = [
             "main > section:not(#home)",
@@ -50,31 +55,38 @@ import "../styles/theme.css";
             ".contactCard"
           ];
 
-          const revealItems = document.querySelectorAll(revealSelectors.join(", "));
-          revealItems.forEach((item, index) => {
-            item.setAttribute("data-reveal", "");
-            item.style.setProperty("--reveal-delay", `${(index % 6) * 70}ms`);
-          });
+          if (!lightweightMode) {
+            const revealItems = document.querySelectorAll(
+              revealSelectors.join(", ")
+            );
+            revealItems.forEach((item, index) => {
+              item.setAttribute("data-reveal", "");
+              item.style.setProperty("--reveal-delay", `${(index % 6) * 70}ms`);
+            });
 
-          const revealObserver = new IntersectionObserver(
-            (entries, observer) => {
-              entries.forEach((entry) => {
-                if (!entry.isIntersecting) return;
-                entry.target.classList.add("is-visible");
-                observer.unobserve(entry.target);
-              });
-            },
-            {
-              root: main,
-              threshold: 0.16,
-              rootMargin: "0px 0px -8% 0px"
-            }
-          );
+            const revealObserver = new IntersectionObserver(
+              (entries, observer) => {
+                entries.forEach((entry) => {
+                  if (!entry.isIntersecting) return;
+                  entry.target.classList.add("is-visible");
+                  observer.unobserve(entry.target);
+                });
+              },
+              {
+                root: main,
+                threshold: 0.16,
+                rootMargin: "0px 0px -8% 0px"
+              }
+            );
 
-          revealItems.forEach((item) => revealObserver.observe(item));
+            revealItems.forEach((item) => revealObserver.observe(item));
+          }
 
           const progressBar = document.getElementById("scroll-progress");
           const ambientCanvas = document.getElementById("ambient-canvas");
+          if (saveData && ambientCanvas) {
+            ambientCanvas.style.display = "none";
+          }
           const navLinks = Array.from(
             document.querySelectorAll("nav a[href^='#']")
           );
@@ -102,7 +114,7 @@ import "../styles/theme.css";
             if (progressBar) {
               progressBar.style.transform = `scaleX(${ratio})`;
             }
-            if (ambientCanvas) {
+            if (!lightweightMode && ambientCanvas) {
               ambientCanvas.style.setProperty(
                 "--ambient-shift",
                 `${(ratio - 0.5) * 100}px`

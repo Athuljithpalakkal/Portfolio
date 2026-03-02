@@ -4,7 +4,7 @@ import ThemeToggle from "../ThemeToggle/ThemeToggle.astro";
 import styles from "./Navbar.module.css";
 ---
 
-<nav class={styles.nav}>
+<nav class={styles.nav} data-navbar>
   <div class={styles.left}>
     <span class={styles.logo}>AJ</span>
   </div>
@@ -25,7 +25,7 @@ import styles from "./Navbar.module.css";
 
 <script>
   (() => {
-    const nav = document.querySelector("nav");
+    const nav = document.querySelector("[data-navbar]");
     const main = document.querySelector("main");
     if (!nav || !main) return;
 
@@ -47,6 +47,11 @@ import styles from "./Navbar.module.css";
         top: nextTop,
         behavior: smooth && !prefersReducedMotion ? "smooth" : "auto"
       });
+
+      // Keep the document viewport pinned so hash updates do not shift fixed UI.
+      if (window.scrollY !== 0) {
+        window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+      }
     };
 
     navLinks.forEach((link) => {
@@ -55,9 +60,19 @@ import styles from "./Navbar.module.css";
         if (!hash?.startsWith("#")) return;
         event.preventDefault();
         scrollToHash(hash, true);
-        history.replaceState(null, "", hash);
+        if (window.location.hash !== hash) {
+          history.pushState(null, "", hash);
+        }
       });
     });
+
+    const syncHashScroll = () => {
+      if (!window.location.hash) return;
+      scrollToHash(window.location.hash, false);
+    };
+
+    window.addEventListener("hashchange", syncHashScroll);
+    window.addEventListener("popstate", syncHashScroll);
 
     requestAnimationFrame(() => {
       if (window.location.hash) {

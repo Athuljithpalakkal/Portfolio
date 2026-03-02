@@ -1,6 +1,6 @@
 .nav {
   position: fixed;
-  top: 0.95rem;
+  top: max(0.8rem, env(safe-area-inset-top));
   left: 50%;
   transform: translateX(-50%);
   width: min(1140px, 94%);
@@ -11,8 +11,8 @@
   align-items: center;
 
   background: var(--nav-bg);
-  -webkit-backdrop-filter: blur(18px);
-  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
   border: 1px solid color-mix(in srgb, var(--border) 90%, transparent);
   border-radius: 999px;
   box-shadow: 0 12px 28px rgba(2, 6, 23, 0.16);
@@ -103,7 +103,9 @@
 @media (max-width: 768px) {
   .nav {
     padding: 0.62rem 1.05rem;
-    top: 0.72rem;
+    top: max(0.55rem, env(safe-area-inset-top));
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
   }
 
   .center {
@@ -121,6 +123,7 @@
     width: min(97%, 97%);
     border-radius: 0.95rem;
     padding: 0.55rem 0.75rem;
+    top: max(0.5rem, env(safe-area-inset-top));
     grid-template-columns: auto auto;
     row-gap: 0.4rem;
   }

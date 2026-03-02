@@ -1,6 +1,5 @@
 ---
 import styles from "./Hero.module.css";
-import GradientText from "../GradientText/GradientText.jsx";
 import Particles from "../Particles/Particles.jsx";
 ---
 
@@ -8,17 +7,17 @@ import Particles from "../Particles/Particles.jsx";
   <div class={styles.particlesLayer} aria-hidden="true">
     <Particles
       particleColors={["#1d4ed8", "#0f766e", "#334155", "#ffffff"]}
-      particleCount={220}
+      particleCount={150}
       particleSpread={9.5}
       speed={0.095}
-      particleBaseSize={110}
+      particleBaseSize={88}
       moveParticlesOnHover={true}
-      particleHoverFactor={0.85}
+      particleHoverFactor={0.72}
       alphaParticles={true}
       disableRotation={false}
       pixelRatio={1}
       className={styles.particlesCanvas}
-      client:load
+      client:media="(min-width: 900px)"
     />
   </div>
 
@@ -31,17 +30,7 @@ import Particles from "../Particles/Particles.jsx";
     <h1 class={styles.title}>
       <span class={styles.line}>Building reliable</span>
       <span class={styles.line}>
-        <GradientText
-          className={styles.titleGradient}
-          colors={["#2563eb", "#14b8a6", "#93c5fd"]}
-          animationSpeed={6}
-          direction="horizontal"
-          pauseOnHover={true}
-          yoyo={true}
-          client:load
-        >
-          frontend products
-        </GradientText>
+        <span class={styles.lineAccent}>frontend products</span>
       </span>
     </h1>
 

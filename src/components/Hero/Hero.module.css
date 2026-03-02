@@ -97,10 +97,27 @@
   display: block;
 }
 
-.titleGradient {
+.lineAccent {
   font: inherit;
   letter-spacing: inherit;
   line-height: inherit;
+  background-image: linear-gradient(90deg, #2563eb, #14b8a6, #93c5fd, #2563eb);
+  background-size: 220% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: titleGradientMove 7s ease-in-out infinite;
+}
+
+@keyframes titleGradientMove {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 .subtitle {
@@ -210,7 +227,6 @@
   color: var(--text);
   text-decoration: none;
   background: var(--surface);
-  backdrop-filter: blur(14px);
   transition: background 0.25s ease, transform 0.25s ease;
 }
 
@@ -225,8 +241,8 @@
   width: 500px;
   height: 500px;
   background: radial-gradient(circle at 30% 30%, var(--accent-1), transparent 60%);
-  filter: blur(120px);
-  opacity: 0.32;
+  filter: blur(90px);
+  opacity: 0.28;
   animation: float 14s ease-in-out infinite;
   z-index: 1;
 }
@@ -238,8 +254,8 @@
   width: 430px;
   height: 430px;
   background: radial-gradient(circle at 60% 40%, var(--accent-2), transparent 62%);
-  filter: blur(120px);
-  opacity: 0.24;
+  filter: blur(90px);
+  opacity: 0.2;
   animation: floatSecondary 12s ease-in-out infinite;
   z-index: 1;
 }
@@ -337,7 +353,11 @@
   }
 
   .particlesLayer {
-    opacity: 0.72;
+    opacity: 0.64;
+  }
+
+  .orbSecondary {
+    display: none;
   }
 }
 
