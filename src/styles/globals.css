@@ -12,6 +12,7 @@ html {
 body {
   margin: 0;
   min-height: 100svh;
+  overflow: hidden;
   background:
     radial-gradient(1200px 700px at 8% -18%, rgba(37, 99, 235, 0.16), transparent),
     radial-gradient(900px 580px at 95% 8%, rgba(20, 184, 166, 0.14), transparent),
@@ -161,13 +162,10 @@ main {
   overflow-y: auto;
   overscroll-behavior-y: contain;
   scroll-padding-top: 6.75rem;
-  scroll-snap-type: y proximity;
   scrollbar-gutter: stable;
 }
 
 section {
-  scroll-snap-align: start;
-  scroll-snap-stop: normal;
   scroll-margin-top: 6.75rem;
 }
 
@@ -542,12 +540,11 @@ section {
 
 @media (max-width: 768px) {
   main {
-    scroll-snap-type: y proximity;
-    scroll-padding-top: 5.95rem;
+    scroll-padding-top: 7.2rem;
   }
 
   section {
-    scroll-margin-top: 5.95rem;
+    scroll-margin-top: 7.2rem;
   }
 
   [data-reveal] {
@@ -617,7 +614,7 @@ section {
   }
 
   main {
-    scroll-snap-type: none;
+    scroll-padding-top: 6.75rem;
   }
 
   #ambient-canvas {

@@ -106,8 +106,15 @@ export default function Particles({
     const container = containerRef.current;
     if (!container) return undefined;
 
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+    const hasHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    const effectiveCount = isMobile ? Math.min(particleCount, 120) : particleCount;
+    const effectiveBaseSize = isMobile ? particleBaseSize * 0.72 : particleBaseSize;
+    const effectiveDpr = isMobile ? Math.min(pixelRatio, 0.9) : pixelRatio;
+    const enableHover = moveParticlesOnHover && hasHover;
+
     const renderer = new Renderer({
-      dpr: pixelRatio,
+      dpr: effectiveDpr,
       depth: false,
       alpha: true
     });
@@ -134,11 +141,11 @@ export default function Particles({
       mouseRef.current = { x, y };
     };
 
-    if (moveParticlesOnHover) {
+    if (enableHover) {
       window.addEventListener("mousemove", handleMouseMove, { passive: true });
     }
 
-    const count = particleCount;
+    const count = effectiveCount;
     const positions = new Float32Array(count * 3);
     const randoms = new Float32Array(count * 4);
     const colors = new Float32Array(count * 3);
@@ -178,7 +185,7 @@ export default function Particles({
       uniforms: {
         uTime: { value: 0 },
         uSpread: { value: particleSpread },
-        uBaseSize: { value: particleBaseSize * pixelRatio },
+        uBaseSize: { value: effectiveBaseSize * effectiveDpr },
         uSizeRandomness: { value: sizeRandomness },
         uAlphaParticles: { value: alphaParticles ? 1 : 0 }
       },
@@ -200,7 +207,7 @@ export default function Particles({
 
       program.uniforms.uTime.value = elapsed * 0.001;
 
-      if (moveParticlesOnHover) {
+      if (enableHover) {
         particles.position.x = -mouseRef.current.x * particleHoverFactor;
         particles.position.y = -mouseRef.current.y * particleHoverFactor;
       } else {
@@ -221,7 +228,7 @@ export default function Particles({
 
     return () => {
       window.removeEventListener("resize", resize);
-      if (moveParticlesOnHover) {
+      if (enableHover) {
         window.removeEventListener("mousemove", handleMouseMove);
       }
       cancelAnimationFrame(animationFrameId);

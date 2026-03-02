@@ -335,6 +335,10 @@
   .stats article {
     padding: 0.65rem 0.75rem;
   }
+
+  .particlesLayer {
+    opacity: 0.72;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
